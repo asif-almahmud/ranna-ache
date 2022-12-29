@@ -25,7 +25,7 @@ const StyledImage = styled(Image)(({ theme }) => ({
 }));
 
 const SearchComponent = styled("div")(({ theme }) => ({
-  width: "400px",
+  maxWidth: "400px",
   display: "flex",
 }));
 
@@ -51,26 +51,26 @@ const Hero = (props: Props) => {
           >
             Authentic Home food in UK
           </Typography>
-          <Typography variant="body1" sx={{ color: "#fff", width: "440px" }}>
+          <Typography variant="body1" sx={{ color: "#fff", maxWidth: "440px" }}>
             What2Eat is a courier service in which authentic home cook food is
-            delivered to a customer
+            delivered to a customer.
           </Typography>
           <SearchComponent>
             <Input
               type="search"
               placeholder="Search food you love"
               sx={{
-                flex: 3,
+                flex: 5,
                 borderRadius: "10px 0 0 10px",
                 fontSize: "16px",
-                padding: "0 10px 0 10px ",
+                padding: "0 10px 0 15px ",
               }}
             />
             <Input
               type="submit"
               value="Search"
               sx={{
-                flex: 1,
+                flex: 2,
                 color: "#fff",
                 bgcolor: (theme) => theme.palette.secondary.main,
                 borderRadius: "0 10px 10px 0",

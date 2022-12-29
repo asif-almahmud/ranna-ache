@@ -1,23 +1,39 @@
 import { Box, styled, Typography } from "@mui/material";
+import axiosClient from "api/axiosClient";
 import Filters from "components/filters";
 import Offers from "components/offers";
+import ProductCard from "components/product-card";
 import Section from "components/section";
 import React from "react";
+import { useQuery } from "react-query";
 import { theme } from "theme/theme";
 
 const Content = styled("div")(({ theme }) => ({
   padding: "100px 0 100px 0",
 }));
 
-type Props = {};
+const fetchProducts = () => {
+  return axiosClient.get("/products");
+};
 
-const Kitchen = (props: Props) => {
+const Kitchen = () => {
+  const { data, isLoading, isError, error, isFetching } = useQuery(
+    "products",
+    fetchProducts,
+    { staleTime: 60000 }
+  );
+  console.log({ data });
   return (
     <Section bgcolor={theme.palette.primary.superLight}>
       <Content>
         <Typography variant="h5">Home kitchen</Typography>
         <Offers />
         <Filters />
+        <Box sx={{ marginTop: "40px" }}>
+          {data?.data.map((product: any) => (
+            <ProductCard key={product.id} product={product} />
+          ))}
+        </Box>
       </Content>
     </Section>
   );

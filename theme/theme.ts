@@ -4,6 +4,7 @@ import {
   responsiveFontSizes,
   ThemeOptions,
 } from "@mui/material/styles";
+import React from "react";
 import variables from "./variables";
 declare module "@mui/material/styles" {
   interface BreakpointOverrides {
@@ -12,6 +13,17 @@ declare module "@mui/material/styles" {
     md: true;
     lg: true;
     xl: true;
+  }
+
+  interface TypographyVariants {
+    title: React.CSSProperties;
+    paragraph: React.CSSProperties;
+  }
+
+  // allow configuration using `createTheme`
+  interface TypographyVariantsOptions {
+    title?: React.CSSProperties;
+    paragraph?: React.CSSProperties;
   }
 
   interface Palette {
@@ -53,28 +65,58 @@ const options: ThemeOptions = {
   },
   typography: {
     h1: {
-      fontSize: "2rem",
-      fontWeight: 700,
+      fontFamily: "Poppins",
+      fontSize: "70px",
+      fontWeight: 900,
+      letterSpacing: "-0.012em",
     },
     h2: {
-      fontSize: "1.5rem",
-      fontWeight: 500,
+      fontFamily: "Poppins",
+      fontSize: "40px",
+      fontWeight: 800,
+      letterSpacing: "-0.012em",
     },
     h3: {
-      fontSize: "1.25rem",
-      fontWeight: 400,
+      fontFamily: "Poppins",
+      fontSize: "32px",
+      fontWeight: 700,
+      letterSpacing: "-0.012em",
     },
     h4: {
-      fontSize: "1rem",
-      fontWeight: 500,
+      fontFamily: "Poppins",
+      fontSize: "28px",
+      fontWeight: 600,
+      letterSpacing: "-0.012em",
     },
     h5: {
-      fontSize: "1rem",
-      fontWeight: 400,
+      fontFamily: "Poppins",
+      fontSize: "24px",
+      fontWeight: 500,
+      letterSpacing: "-0.012em",
     },
     h6: {
-      fontSize: "1rem",
-      fontWeight: 300,
+      fontFamily: "Poppins",
+      fontSize: "20px",
+      fontWeight: 400,
+      letterSpacing: "-0.012em",
+    },
+    subtitle1: {
+      fontFamily: "Roboto",
+      fontSize: "18px",
+      fontWeight: 500,
+      letterSpacing: "-0.012em",
+    },
+    body1: {
+      fontFamily: "Roboto",
+      fontSize: "16px",
+      fontWeight: 400,
+      letterSpacing: "-0.012em",
+    },
+    caption: {
+      fontFamily: "Roboto",
+      fontSize: "12px",
+      fontWeight: 400,
+      letterSpacing: "-0.012em",
     },
   },
   breakpoints: {

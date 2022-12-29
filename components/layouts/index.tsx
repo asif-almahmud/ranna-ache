@@ -1,9 +1,17 @@
-import React from "react";
+import React, { FC, ReactNode } from "react";
+import { Header } from "../header";
 
-type Props = {};
+interface ILayoutProps {
+  children: ReactNode;
+}
 
-const Layout = (props: Props) => {
-  return <div>index</div>;
+const Layout: FC<ILayoutProps> = ({ children }) => {
+  return (
+    <div>
+      <Header />
+      <div>{children}</div>
+    </div>
+  );
 };
 
 export default Layout;

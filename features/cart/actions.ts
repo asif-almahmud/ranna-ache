@@ -1,45 +1,51 @@
 import type { PayloadAction } from "@reduxjs/toolkit";
-import { Cart } from "../../types/type";
+import { ICart, ICartItem } from "../../types/type";
+import { initialState } from "./cartSlice";
 
-const addItemToCart = (
-  state: Cart,
-  action: PayloadAction<{
-    id: string;
-    title: string;
-    description: string;
-    count: number;
-    price: number;
-  }>
-) => {
+// id: string;
+//   name: string;
+//   price: number;
+//   quantity: number;
+//   vat: number;
+//   addon: {
+//     name: string;
+//     price: number;
+//   };
+
+const addItemToCart = (state: ICart, action: PayloadAction<ICartItem>) => {
   let newItem = {
     id: action.payload.id,
-    title: action.payload.title,
-    description: action.payload.description,
-    count: action.payload.count,
+    name: action.payload.name,
     price: action.payload.price,
+    quantity: action.payload.quantity,
+    vat: action.payload.vat,
+    addon: {
+      name: action.payload.name,
+      price: action.payload.price,
+    },
   };
 
-  state.cartItems.push(newItem);
+  state.items.push(newItem);
 };
 
 const deleteItemFromCart = (
-  state: Cart,
-  action: PayloadAction<{ itemId: string }>
-) => {
-  let id = action.payload.itemId;
-
-  state.cartItems = state.cartItems.filter((item) => item.id !== id);
-};
-
-const increaseCartItem = (
-  state: Cart,
+  state: ICart,
   action: PayloadAction<{ id: string }>
 ) => {
   let id = action.payload.id;
 
-  state.cartItems = state.cartItems.map((item) => {
+  state.items = state.items.filter((item) => item.id !== id);
+};
+
+const increaseCartItem = (
+  state: ICart,
+  action: PayloadAction<{ id: string }>
+) => {
+  let id = action.payload.id;
+
+  state.items = state.items.map((item) => {
     if (item.id === id) {
-      return { ...item, count: item.count + 1 };
+      return { ...item, quantity: item.quantity + 1 };
     } else {
       return item;
     }
@@ -47,14 +53,14 @@ const increaseCartItem = (
 };
 
 const decreaseCartItem = (
-  state: Cart,
+  state: ICart,
   action: PayloadAction<{ id: string }>
 ) => {
   let id = action.payload.id;
 
-  state.cartItems = state.cartItems.map((item) => {
+  state.items = state.items.map((item) => {
     if (item.id === id) {
-      return { ...item, count: item.count - 1 };
+      return { ...item, quantity: item.quantity - 1 };
     } else {
       return item;
     }
@@ -62,10 +68,35 @@ const decreaseCartItem = (
 };
 
 const emptyCart = (
-  state: Cart
+  state: ICart
   // action: PayloadAction<{}>
 ) => {
-  state = { cartItems: [], totalPrice: 0 };
+  state = initialState;
+};
+
+const handleAddon = (
+  state: ICart,
+  action: PayloadAction<{ id: string; addonName: string; addonPrice: number }>
+) => {
+  let id = action.payload.id;
+  let addonName = action.payload.addonName;
+  let addonPrice = action.payload.addonPrice;
+
+  state.items = state.items.map((item) => {
+    if (item.id === id) {
+      return { ...item, addon: { name: addonName, price: addonPrice } };
+    } else {
+      return item;
+    }
+  });
+};
+
+const handleCalculation = (state: ICart) => {
+  state.calculation.price = state.items.reduce((priceSum, item) => {
+    return priceSum + item.addon.price * item.quantity;
+  }, 0);
+  state.calculation.vat = state.calculation.price * 0.05;
+  state.calculation.total = state.calculation.price + state.calculation.vat;
 };
 
 export {
@@ -74,4 +105,6 @@ export {
   increaseCartItem,
   decreaseCartItem,
   emptyCart,
+  handleAddon,
+  handleCalculation,
 };

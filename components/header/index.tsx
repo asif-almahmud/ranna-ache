@@ -4,6 +4,7 @@ import {
   ButtonGroup,
   Container,
   darken,
+  IconButton,
   lighten,
 } from "@mui/material";
 import React from "react";
@@ -19,7 +20,7 @@ const MainWrapper = styled("div")(({ theme }) => ({
   // boxShadow: `1px 1px 4px ${theme.palette.primary.light}`,
   width: "100%",
   height: "80px",
-  position: "fixed",
+  position: "sticky",
   top: 0,
   left: 0,
   zIndex: 999,
@@ -37,8 +38,6 @@ const MenuOptions = styled(Box)(({ theme }) => ({
 }));
 
 const MenuOption = styled(Box)(({ theme }) => ({
-  width: "50px",
-  height: "20px",
   fontFamily: "Poppins",
   fontStyle: "normal",
   fontWeight: 400,
@@ -47,18 +46,29 @@ const MenuOption = styled(Box)(({ theme }) => ({
   letterSpacing: "-0.012em",
   color: theme.palette.primary.contrastText,
   cursor: "pointer",
+  transition: "all 400ms ease-in-out",
   "&:hover": {
-    color: theme.palette.primary.lighter,
+    color: theme.palette.secondary.lighter,
   },
 }));
 
 const IconContainer = styled("div")(({ theme }) => ({
   display: "flex",
-  gap: "40px",
+  gap: "20px",
+}));
+
+const StyledIconButton = styled(IconButton)(({ theme }) => ({
+  color: theme.palette.primary.contrastText,
+  width: "40px",
+  height: "40px",
+  transition: "all 400ms ease-in-out",
+  "&:hover": {
+    backgroundColor: alpha(theme.palette.primary.light, 0.2),
+    color: theme.palette.secondary.light,
+  },
 }));
 
 const Icon = styled("i")(({ theme }) => ({
-  color: theme.palette.primary.contrastText,
   cursor: "pointer",
   fontSize: "20px",
 }));
@@ -87,8 +97,12 @@ export const Header = () => {
           ))}
         </MenuOptions>
         <IconContainer>
-          <Icon className="uil uil-search icon-size"></Icon>
-          <Icon className="uil uil-shopping-bag icon-size"></Icon>
+          <StyledIconButton>
+            <Icon className="uil uil-search icon-size"></Icon>
+          </StyledIconButton>
+          <StyledIconButton>
+            <Icon className="uil uil-shopping-bag icon-size"></Icon>
+          </StyledIconButton>
         </IconContainer>
       </Container>
     </MainWrapper>

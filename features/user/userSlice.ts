@@ -1,27 +1,31 @@
+import type { PayloadAction } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
-import { Cart } from "../../types/type";
-import {
-  addItemToCart,
-  decreaseCartItem,
-  deleteItemFromCart,
-  emptyCart,
-  increaseCartItem,
-} from "./actions";
+import { IUser } from "types/type";
 
-const initialState: Cart = { cartItems: [], totalPrice: 0 };
+// name: string;
+//   address: string;
+//   phone: string;
 
-export const cartSlice = createSlice({
-  name: "cart",
+export const initialState: IUser = {
+  name: "",
+  address: "",
+  phone: "",
+};
+
+export const userSlice = createSlice({
+  name: "user",
   initialState,
   reducers: {
-    addItem: addItemToCart,
-    deleteItem: deleteItemFromCart,
-    increaseItem: increaseCartItem,
-    decreaseItem: decreaseCartItem,
-    empty: emptyCart,
+    createUser: (state: IUser, action: PayloadAction<IUser>) => {
+      let user = {
+        name: action.payload.name,
+        address: action.payload.address,
+        phone: action.payload.phone,
+      };
+      state = user;
+    },
   },
 });
 
-export const { addItem, deleteItem, increaseItem, decreaseItem, empty } =
-  cartSlice.actions;
-export default cartSlice.reducer;
+export const { createUser } = userSlice.actions;
+export default userSlice.reducer;

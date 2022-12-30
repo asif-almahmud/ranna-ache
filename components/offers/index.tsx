@@ -39,6 +39,12 @@ const Offers = (props: Props) => {
           sx={{
             bgcolor: (theme) =>
               option === selectedOption ? theme.palette.secondary.main : null,
+            "&:hover": {
+              bgcolor: (theme) =>
+                option === selectedOption
+                  ? null
+                  : theme.palette.secondary.superLight,
+            },
           }}
           onClick={() => setSelectedOption(option)}
         >

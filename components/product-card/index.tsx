@@ -79,12 +79,15 @@ const ProductCard: FC<IProductCardProps> = ({ product }) => {
         <Box
           sx={{
             position: "absolute",
-            top: "0",
-            left: "0",
+            bottom: "0",
+            right: "0",
             padding: "4px 6px",
-            bgcolor: (theme) => theme.palette.tertiary.main,
+            bgcolor: (theme) => alpha(theme.palette.secondary.dark, 0.5),
+            backdropFilter: "blur(5px)",
             color: "#fff",
-            borderRadius: "10px 0 10px 0",
+            borderRadius: "0 0 0 0",
+            fontWeight: 500,
+            fontSize: "12px",
           }}
         >
           In Cart
@@ -124,15 +127,13 @@ const ProductCard: FC<IProductCardProps> = ({ product }) => {
           </Box>
           <IconButton
             color="primary"
-            aria-label="upload picture"
-            component="label"
             sx={{
               padding: "0",
               borderRadius: "4px",
               "&:hover": {},
               "&:focus": {
                 outline: (theme) =>
-                  `4px solid ${alpha(theme.palette.secondary.main, 0.2)}`,
+                  `4px solid ${alpha(theme.palette.primary.lighter, 0.2)}`,
               },
             }}
           >
@@ -144,9 +145,6 @@ const ProductCard: FC<IProductCardProps> = ({ product }) => {
                 cursor: "pointer",
                 fontSize: "20px",
                 transition: "all 200ms ease-in-out",
-                // "&:hover": {
-                //   bgcolor: (theme) => theme.palette.secondary.dark,
-                // },
               }}
             />
           </IconButton>

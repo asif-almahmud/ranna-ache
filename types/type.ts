@@ -1,19 +1,19 @@
-export type User = {
+export interface IUser {
   name: string;
   address: string;
   phone: string;
-};
+}
 
-export type Calculation = {
+export interface ICalculation {
   price: number;
   vat: number;
   total: number;
-};
+}
 
-export type Cart = {
+export interface ICart {
   items: CartItems;
-  calculation: Calculation;
-};
+  calculation: ICalculation;
+}
 
 export type CartItems = ICartItem[];
 

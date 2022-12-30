@@ -7,7 +7,7 @@ import { theme } from "theme/theme";
 type Props = {};
 
 const ContentWrapper = styled("div")(({ theme }) => ({
-  minHeight: "100vh",
+  minHeight: "calc(100vh - 80px)",
   display: "flex",
   justifyContent: "space-between",
   alignItems: "center",

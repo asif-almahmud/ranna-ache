@@ -1,14 +1,19 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { Cart } from "../../types/type";
+import { ICart } from "types/type";
 import {
   addItemToCart,
   decreaseCartItem,
   deleteItemFromCart,
-  emptyCart,
+  emptyCart as emptyCartItems,
+  handleAddon,
+  handleCalculation,
   increaseCartItem,
 } from "./actions";
 
-const initialState: Cart = { cartItems: [], totalPrice: 0 };
+export const initialState: ICart = {
+  items: [],
+  calculation: { price: 0, vat: 0, total: 0 },
+};
 
 export const cartSlice = createSlice({
   name: "cart",
@@ -18,10 +23,19 @@ export const cartSlice = createSlice({
     deleteItem: deleteItemFromCart,
     increaseItem: increaseCartItem,
     decreaseItem: decreaseCartItem,
-    empty: emptyCart,
+    emptyCart: emptyCartItems,
+    updateAddon: handleAddon,
+    updateCalculation: handleCalculation,
   },
 });
 
-export const { addItem, deleteItem, increaseItem, decreaseItem, empty } =
-  cartSlice.actions;
+export const {
+  addItem,
+  deleteItem,
+  increaseItem,
+  decreaseItem,
+  emptyCart,
+  updateAddon,
+  updateCalculation,
+} = cartSlice.actions;
 export default cartSlice.reducer;

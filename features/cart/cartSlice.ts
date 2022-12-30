@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { Cart } from "../types/type";
+import { Cart } from "../../types/type";
 import {
   addItemToCart,
   decreaseCartItem,

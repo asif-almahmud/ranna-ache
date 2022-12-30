@@ -1,4 +1,4 @@
-import { Box, styled, Typography } from "@mui/material";
+import { Box, Grid, styled, Typography } from "@mui/material";
 import axiosClient from "api/axiosClient";
 import Filters from "components/filters";
 import Offers from "components/offers";
@@ -29,11 +29,16 @@ const Kitchen = () => {
         <Typography variant="h5">Home kitchen</Typography>
         <Offers />
         <Filters />
-        <Box sx={{ marginTop: "40px" }}>
+        <Grid
+          container
+          rowSpacing={6}
+          columnSpacing={4}
+          sx={{ marginTop: "0px" }}
+        >
           {data?.data.map((product: any) => (
             <ProductCard key={product.id} product={product} />
           ))}
-        </Box>
+        </Grid>
       </Content>
     </Section>
   );

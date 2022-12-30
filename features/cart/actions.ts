@@ -1,5 +1,5 @@
 import type { PayloadAction } from "@reduxjs/toolkit";
-import { Cart } from "../types/type";
+import { Cart } from "../../types/type";
 
 const addItemToCart = (
   state: Cart,

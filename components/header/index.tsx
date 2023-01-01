@@ -19,6 +19,7 @@ import logo from "../../assets/logo.png";
 import CloseIcon from "@mui/icons-material/Close";
 import Cart from "components/cart";
 import { useAppSelector } from "app/hooks";
+import Link from "next/link";
 
 const MainWrapper = styled("div")(({ theme }) => ({
     backgroundColor: theme.palette.primary.main,
@@ -98,6 +99,23 @@ const SingleCalculation = styled("div")(({ theme }) => ({
     alignItems: "center",
 }));
 
+const Checkout = styled(Link)(({ theme }) => ({
+    marginTop: "12px",
+    width: "100%",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    textDecoration: "none",
+    backgroundColor: theme.palette.secondary.main,
+    color: theme.palette.secondary.contrastText,
+    padding: "5px",
+    borderRadius: "5px",
+    fontWeight: "500",
+    "&:focus": {
+        outline: `4px solid ${alpha(theme.palette.primary.lighter, 0.2)}`,
+    },
+}));
+
 const menuOptions = ["Home", "About", "Menu", "Blog", "Contact"];
 
 export const Header = () => {
@@ -159,31 +177,42 @@ export const Header = () => {
                                 />
                             </Box>
                             <Cart />
-                            <Calculation>
-                                <SingleCalculation>
-                                    <Typography variant="subtitle1">
-                                        Subtotal
-                                    </Typography>
-                                    <Typography variant="subtitle1">
-                                        ${calculation.price}
-                                    </Typography>
-                                </SingleCalculation>
-                                <SingleCalculation>
-                                    <Typography variant="subtitle1">
-                                        Vat
-                                    </Typography>
-                                    <Typography variant="subtitle1">
-                                        ${calculation.vat}
-                                    </Typography>
-                                </SingleCalculation>
-                                <SingleCalculation sx={{ marginTop: "6px" }}>
-                                    <Typography variant="h5">Total</Typography>
-                                    <Typography variant="h5">
-                                        {" "}
-                                        ${calculation.total}
-                                    </Typography>
-                                </SingleCalculation>
-                            </Calculation>
+                            {calculation.price > 0 && (
+                                <>
+                                    <Calculation>
+                                        <SingleCalculation>
+                                            <Typography variant="subtitle1">
+                                                Subtotal
+                                            </Typography>
+                                            <Typography variant="subtitle1">
+                                                ${calculation.price}
+                                            </Typography>
+                                        </SingleCalculation>
+                                        <SingleCalculation>
+                                            <Typography variant="subtitle1">
+                                                Vat
+                                            </Typography>
+                                            <Typography variant="subtitle1">
+                                                ${calculation.vat}
+                                            </Typography>
+                                        </SingleCalculation>
+                                        <SingleCalculation
+                                            sx={{ marginTop: "6px" }}
+                                        >
+                                            <Typography variant="h5">
+                                                Total
+                                            </Typography>
+                                            <Typography variant="h5">
+                                                {" "}
+                                                ${calculation.total}
+                                            </Typography>
+                                        </SingleCalculation>
+                                    </Calculation>
+                                    <Checkout href="/checkout">
+                                        Checkout
+                                    </Checkout>
+                                </>
+                            )}
                         </Box>
                     </Drawer>
                 </IconContainer>

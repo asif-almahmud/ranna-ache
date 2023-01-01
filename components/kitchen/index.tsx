@@ -19,8 +19,8 @@ const fetchProducts = () => {
 const Kitchen = () => {
   const { data, isLoading, isError, error, isFetching } = useQuery(
     "products",
-    fetchProducts,
-    { staleTime: 60000 }
+    fetchProducts
+    // { staleTime: 60000 }
   );
   console.log({ data });
   return (

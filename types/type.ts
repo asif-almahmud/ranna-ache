@@ -1,7 +1,8 @@
 export interface IUser {
-    name: string;
-    address: string;
-    phone: string;
+    name: string | null;
+    address: string | null;
+    email: string | null;
+    phone: string | null;
 }
 
 export interface ICalculation {
@@ -37,4 +38,30 @@ export interface ICartItem {
     image: string;
     vat: number;
     addons: Addons;
+}
+
+export interface IItemForPayload {
+    id: ItemId;
+    name: string;
+    price: number;
+    quantity: number;
+    vat: number;
+    addon: {
+        name: string;
+        price: number;
+    };
+}
+
+export interface IPayload {
+    customer: {
+        name: string | null;
+        address: string | null;
+        phone: string | null;
+    };
+    calculation: {
+        price: number;
+        vat: number;
+        total: number;
+    };
+    items: IItemForPayload[];
 }

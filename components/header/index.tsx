@@ -20,6 +20,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import Cart from "components/cart";
 import { useAppSelector } from "app/hooks";
 import Link from "next/link";
+import PriceSummary from "components/price-summary";
 
 const MainWrapper = styled("div")(({ theme }) => ({
     backgroundColor: theme.palette.primary.main,
@@ -32,7 +33,7 @@ const MainWrapper = styled("div")(({ theme }) => ({
     zIndex: 999,
 }));
 
-const LogoContainer = styled(Box)(({ theme }) => ({
+const LogoContainer = styled(Link)(({ theme }) => ({
     cursor: "pointer",
     width: "128px",
     height: "65px",
@@ -43,7 +44,7 @@ const MenuOptions = styled(Box)(({ theme }) => ({
     gap: "40px",
 }));
 
-const MenuOption = styled(Box)(({ theme }) => ({
+const MenuOption = styled(Link)(({ theme }) => ({
     fontFamily: "Poppins",
     fontStyle: "normal",
     fontWeight: 400,
@@ -53,6 +54,7 @@ const MenuOption = styled(Box)(({ theme }) => ({
     color: theme.palette.primary.contrastText,
     cursor: "pointer",
     transition: "all 400ms ease-in-out",
+    textDecoration: "none",
     "&:hover": {
         color: theme.palette.secondary.lighter,
     },
@@ -90,32 +92,6 @@ const InCartIndication = styled("div")(({ theme }) => ({
     borderRadius: "10px",
 }));
 
-const Calculation = styled("div")(({ theme }) => ({
-    margin: "32px 0 10px 0",
-}));
-const SingleCalculation = styled("div")(({ theme }) => ({
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-}));
-
-const Checkout = styled(Link)(({ theme }) => ({
-    marginTop: "12px",
-    width: "100%",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    textDecoration: "none",
-    backgroundColor: theme.palette.secondary.main,
-    color: theme.palette.secondary.contrastText,
-    padding: "5px",
-    borderRadius: "5px",
-    fontWeight: "500",
-    "&:focus": {
-        outline: `4px solid ${alpha(theme.palette.primary.lighter, 0.2)}`,
-    },
-}));
-
 const menuOptions = ["Home", "About", "Menu", "Blog", "Contact"];
 
 export const Header = () => {
@@ -136,12 +112,14 @@ export const Header = () => {
                     [theme.breakpoints.up("md")]: {},
                 }}
             >
-                <LogoContainer>
+                <LogoContainer href="/">
                     <Image src={logo} alt="logo" />
                 </LogoContainer>
                 <MenuOptions>
                     {menuOptions.map((option) => (
-                        <MenuOption key={option}>{option}</MenuOption>
+                        <MenuOption href="/" key={option}>
+                            {option}
+                        </MenuOption>
                     ))}
                 </MenuOptions>
                 <IconContainer>
@@ -178,40 +156,7 @@ export const Header = () => {
                             </Box>
                             <Cart />
                             {calculation.price > 0 && (
-                                <>
-                                    <Calculation>
-                                        <SingleCalculation>
-                                            <Typography variant="subtitle1">
-                                                Subtotal
-                                            </Typography>
-                                            <Typography variant="subtitle1">
-                                                ${calculation.price}
-                                            </Typography>
-                                        </SingleCalculation>
-                                        <SingleCalculation>
-                                            <Typography variant="subtitle1">
-                                                Vat
-                                            </Typography>
-                                            <Typography variant="subtitle1">
-                                                ${calculation.vat}
-                                            </Typography>
-                                        </SingleCalculation>
-                                        <SingleCalculation
-                                            sx={{ marginTop: "6px" }}
-                                        >
-                                            <Typography variant="h5">
-                                                Total
-                                            </Typography>
-                                            <Typography variant="h5">
-                                                {" "}
-                                                ${calculation.total}
-                                            </Typography>
-                                        </SingleCalculation>
-                                    </Calculation>
-                                    <Checkout href="/checkout">
-                                        Checkout
-                                    </Checkout>
-                                </>
+                                <PriceSummary withCheckoutBtn />
                             )}
                         </Box>
                     </Drawer>

@@ -61,11 +61,6 @@ const ActionsContainer = styled("div")(({ theme }) => ({
 const Cart = () => {
     const cartItems = useAppSelector((state) => state.cart.items);
     const dispatch = useAppDispatch();
-    const [age, setAge] = React.useState("");
-
-    const handleChange = (event: SelectChangeEvent) => {
-        setAge(event.target.value as string);
-    };
 
     return (
         <Box sx={{ display: "flex", flexDirection: "column", gap: "20px" }}>

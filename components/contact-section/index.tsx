@@ -58,6 +58,8 @@ const ImageContainer = styled("div")(({ theme }) => ({
     height: "350px",
     position: "relative",
     margin: "50px 40px 40px 40px",
+    borderRadius: "20px ",
+    backgroundColor: theme.palette.tertiary.light,
     [theme.breakpoints.down("md")]: {
         width: "380px",
         height: "420px",
@@ -71,9 +73,9 @@ const ImageContainer = styled("div")(({ theme }) => ({
 
 const StyledImage = styled(Image)(({ theme }) => ({
     objectFit: "cover",
-    borderRadius: "50px ",
+    borderRadius: "20px ",
     transform: "rotateY(180deg)",
-    opacity: "0.85",
+    opacity: "0.8",
     boxShadow: "0 0 50px #999999d1",
 }));
 
@@ -93,7 +95,7 @@ const Contact = (props: Props) => {
                             48 hours.
                         </Typography>
                     </div>
-                    <CustomForm>
+                    <CustomForm onSubmit={(e) => e.preventDefault()}>
                         <InputsGroup>
                             <CustomInput type="text" placeholder="Your Name" />
                             <CustomInput

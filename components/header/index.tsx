@@ -21,6 +21,7 @@ import Cart from "components/cart";
 import { useAppSelector } from "app/hooks";
 import Link from "next/link";
 import PriceSummary from "components/price-summary";
+import Section from "components/section";
 
 const MainWrapper = styled("div")(({ theme }) => ({
     backgroundColor: theme.palette.primary.main,
@@ -39,20 +40,22 @@ const LogoContainer = styled(Link)(({ theme }) => ({
     height: "65px",
 }));
 
-const MenuOptions = styled(Box)(({ theme }) => ({
+const NavOptions = styled(Box)(({ theme }) => ({
     display: "flex",
     gap: "40px",
+    fontSize: "18px",
+    lineHeight: "20px",
     [theme.breakpoints.down("sm")]: {
-        display: "none",
+        gap: "20px",
+        fontSize: "16px",
+        lineHeight: "18px",
     },
 }));
 
-const MenuOption = styled(Link)(({ theme }) => ({
+const NavOption = styled(Link)(({ theme }) => ({
     fontFamily: "Poppins",
     fontStyle: "normal",
     fontWeight: 400,
-    fontSize: "18px",
-    lineHeight: "20px",
     letterSpacing: "-0.012em",
     color: theme.palette.primary.contrastText,
     cursor: "pointer",
@@ -65,7 +68,13 @@ const MenuOption = styled(Link)(({ theme }) => ({
 
 const IconContainer = styled("div")(({ theme }) => ({
     display: "flex",
+    alignItems: "center",
     gap: "20px",
+    fontSize: "20px",
+    [theme.breakpoints.down("sm")]: {
+        gap: "4px",
+        fontSize: "10px",
+    },
 }));
 
 const StyledIconButton = styled(IconButton)(({ theme }) => ({
@@ -83,6 +92,18 @@ const StyledIconButton = styled(IconButton)(({ theme }) => ({
 const Icon = styled("i")(({ theme }) => ({
     cursor: "pointer",
     fontSize: "20px",
+    [theme.breakpoints.down("sm")]: {
+        fontSize: "18px",
+        color: "#fff",
+        zIndex: "9999",
+    },
+}));
+
+const Expand = styled(Icon)(({ theme }) => ({
+    display: "none",
+    [theme.breakpoints.down(600)]: {
+        display: "block",
+    },
 }));
 
 const InCartIndication = styled("div")(({ theme }) => ({
@@ -95,76 +116,121 @@ const InCartIndication = styled("div")(({ theme }) => ({
     borderRadius: "10px",
 }));
 
-const menuOptions = ["Home", "About", "Menu", "Blog", "Contact"];
+const navOptions = ["Home", "About", "Menu", "Blog", "Contact"];
 
 export const Header = () => {
+    const [openOptions, setOpenOptions] = useState(false);
     const calculation = useAppSelector((state) => state.cart.calculation);
     const [open, setOpen] = useState(false);
     const hasItemInCart = useAppSelector(
         (state) => state.cart.items.length > 0
     );
     return (
-        <MainWrapper>
-            <Container
-                maxWidth="lg"
-                sx={{
-                    height: "100%",
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                    [theme.breakpoints.up("md")]: {},
-                }}
-            >
-                <LogoContainer href="/">
-                    <Image src={logo} alt="logo" />
-                </LogoContainer>
-                <MenuOptions>
-                    {menuOptions.map((option) => (
-                        <MenuOption href="/" key={option}>
-                            {option}
-                        </MenuOption>
-                    ))}
-                </MenuOptions>
-                <IconContainer>
-                    <StyledIconButton>
-                        <Icon className="uil uil-search icon-size"></Icon>
-                    </StyledIconButton>
-                    <StyledIconButton onClick={() => setOpen((prev) => !prev)}>
-                        <Icon className="uil uil-shopping-bag icon-size"></Icon>
-                        {hasItemInCart && <InCartIndication />}
-                    </StyledIconButton>
-                    <Drawer
-                        anchor="right"
-                        open={open}
-                        onClose={() => setOpen(false)}
+        <>
+            <MainWrapper>
+                <Container
+                    maxWidth="lg"
+                    sx={{
+                        height: "100%",
+                        display: "flex",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                        [theme.breakpoints.up("md")]: {},
+                    }}
+                >
+                    <LogoContainer href="/">
+                        <Image src={logo} alt="logo" />
+                    </LogoContainer>
+
+                    <NavOptions
+                        sx={{
+                            [theme.breakpoints.down(600)]: {
+                                display: "none",
+                            },
+                        }}
                     >
-                        <Box sx={{ padding: "10px" }}>
-                            <Box
-                                sx={{
-                                    display: "flex",
-                                    justifyContent: "space-between",
-                                    alignItems: "center",
-                                    height: "40px",
-                                    minWidth: "300px",
-                                    marginBottom: "20px",
-                                }}
-                            >
-                                <Typography variant="h6">Cart</Typography>
-                                <CloseIcon
+                        {navOptions.map((option) => (
+                            <NavOption href="/" key={option}>
+                                {option}
+                            </NavOption>
+                        ))}
+                    </NavOptions>
+                    <IconContainer>
+                        <StyledIconButton>
+                            <Expand
+                                className="uil uil-bars"
+                                onClick={() => setOpenOptions((prev) => !prev)}
+                            ></Expand>
+                        </StyledIconButton>
+                        <StyledIconButton>
+                            <Icon className="uil uil-search icon-size"></Icon>
+                        </StyledIconButton>
+                        <StyledIconButton
+                            onClick={() => setOpen((prev) => !prev)}
+                        >
+                            <Icon className="uil uil-shopping-bag icon-size"></Icon>
+                            {hasItemInCart && <InCartIndication />}
+                        </StyledIconButton>
+                        <Drawer
+                            anchor="right"
+                            open={open}
+                            onClose={() => setOpen(false)}
+                        >
+                            <Box sx={{ padding: "10px" }}>
+                                <Box
                                     sx={{
-                                        cursor: "pointer",
+                                        display: "flex",
+                                        justifyContent: "space-between",
+                                        alignItems: "center",
+                                        height: "40px",
+                                        minWidth: "300px",
+                                        marginBottom: "20px",
                                     }}
-                                    onClick={() => setOpen(false)}
-                                />
+                                >
+                                    <Typography variant="h6">Cart</Typography>
+                                    <CloseIcon
+                                        sx={{
+                                            cursor: "pointer",
+                                        }}
+                                        onClick={() => setOpen(false)}
+                                    />
+                                </Box>
+                                <Cart />
+                                {calculation.price > 0 && (
+                                    <PriceSummary withCheckoutBtn />
+                                )}
                             </Box>
-                            <Cart />
-                            {calculation.price > 0 && (
-                                <PriceSummary withCheckoutBtn />
-                            )}
-                        </Box>
-                    </Drawer>
-                </IconContainer>
-            </Container>
-        </MainWrapper>
+                        </Drawer>
+                    </IconContainer>
+                </Container>
+                {openOptions && (
+                    <NavOptions
+                        sx={{
+                            padding: "8px 0 16px 0",
+                            zIndex: "10",
+                            display: "none",
+                            [theme.breakpoints.down(600)]: {
+                                display: "flex",
+                                flexDirection: "column",
+                                alignItems: "center",
+                                position: "sticky",
+                                top: "80px",
+                                bgcolor: (theme) => theme.palette.primary.main,
+                            },
+                        }}
+                    >
+                        {navOptions.map((option) => (
+                            <NavOption
+                                href="/"
+                                key={option}
+                                onClick={() => setOpenOptions(false)}
+                            >
+                                {option}
+                            </NavOption>
+                        ))}
+                    </NavOptions>
+                )}
+            </MainWrapper>
+        </>
     );
 };

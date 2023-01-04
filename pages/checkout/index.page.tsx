@@ -1,6 +1,6 @@
 import { Box, styled } from "@mui/material";
 import { useAppSelector } from "app/hooks";
-import Layout from "components/layouts";
+import Layout from "layouts";
 import PriceSummary from "components/price-summary";
 import Section from "components/section";
 import { theme } from "theme/theme";

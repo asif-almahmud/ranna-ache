@@ -1,6 +1,6 @@
 import { Box, styled, Typography } from "@mui/material";
 import axiosClient from "api/axiosClient";
-import Layout from "components/layouts";
+import Layout from "layouts";
 import Section from "components/section";
 import ItemSummary from "pages/checkout/components/item-summary";
 import React, { useEffect, useState } from "react";

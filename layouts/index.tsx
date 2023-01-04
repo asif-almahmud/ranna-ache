@@ -1,8 +1,10 @@
 import { useAppDispatch, useAppSelector } from "app/hooks";
+import Footer from "components/footer";
+import { Header } from "components/header";
 import { setInitialCart } from "features/cart/cartSlice";
 import { createUser } from "features/user/userSlice";
 import React, { FC, ReactNode, useEffect } from "react";
-import { Header } from "../header";
+// import { Header } from "../components/header";
 
 interface ILayoutProps {
     children: ReactNode;
@@ -34,6 +36,7 @@ const Layout: FC<ILayoutProps> = ({ children }) => {
         <div>
             <Header />
             <div>{children}</div>
+            <Footer />
         </div>
     );
 };

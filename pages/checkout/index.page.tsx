@@ -17,6 +17,19 @@ const OrderSummary = styled("div")(({ theme }) => ({
     display: "flex",
     flexDirection: "column",
     gap: "40px",
+    [theme.breakpoints.down(840)]: {
+        width: "80%",
+    },
+}));
+
+const Content = styled("div")(({ theme }) => ({
+    minHeight: "calc(100vh - 80px)",
+    padding: "20px 0",
+    display: "flex",
+    [theme.breakpoints.down(840)]: {
+        flexDirection: "column",
+        alignItems: "center",
+    },
 }));
 
 const Checkout = () => {
@@ -24,10 +37,8 @@ const Checkout = () => {
     return (
         <Layout>
             <Section bgcolor={theme.palette.primary.superLight}>
-                <Box
+                <Content
                     sx={{
-                        minHeight: "calc(100vh - 80px)",
-                        display: "flex",
                         justifyContent: `${user.name ? "space-evenly" : null}`,
                         alignItems: `${user.name ? null : "center"}`,
                         flexDirection: `${user.name ? "row" : "column"}`,
@@ -39,7 +50,7 @@ const Checkout = () => {
                             <PriceSummary withOrderBtn />
                         </OrderSummary>
                     )}
-                </Box>
+                </Content>
             </Section>
         </Layout>
     );

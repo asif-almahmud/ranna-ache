@@ -46,6 +46,14 @@ const Kitchen = () => {
                 <Typography variant="h5">Home kitchen</Typography>
                 <Offers />
                 <Filters />
+                {isLoading && (
+                    <Typography
+                        variant="subtitle1"
+                        sx={{ padding: "40px 0 70px 0" }}
+                    >
+                        Loading...
+                    </Typography>
+                )}
                 <Grid
                     container
                     rowSpacing={5}
@@ -56,11 +64,13 @@ const Kitchen = () => {
                         <ProductCard key={product.id} product={product} />
                     ))}
                 </Grid>
-                <CustomBtn>
-                    <i className="uil uil-plus"></i>
-                    <Typography variant="body1">Load more...</Typography>
-                    <div style={{ width: "16px" }}> </div>
-                </CustomBtn>
+                {data?.data && (
+                    <CustomBtn>
+                        <i className="uil uil-plus"></i>
+                        <Typography variant="body1">Load more...</Typography>
+                        <div style={{ width: "16px" }}> </div>
+                    </CustomBtn>
+                )}
             </Content>
         </Section>
     );

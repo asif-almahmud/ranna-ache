@@ -25,18 +25,21 @@ const months = [
 ];
 
 const SingleOrder = styled("div")(({ theme }) => ({
-    padding: "30px 10px",
+    padding: "30px 30px",
     backgroundColor: "#ffffff",
     borderRadius: "10px",
     boxShadow: "0 0 15px #e1e1e1",
     height: "fit-content",
-    width: "40%",
+    width: "50%",
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
     gap: "10px",
     marginBottom: "40px",
+    [theme.breakpoints.down(840)]: {
+        width: "70%",
+    },
 }));
 
 type Props = {};
@@ -91,7 +94,12 @@ const OrderHistory = (props: Props) => {
                                     const d = new Date(createdAt);
                                     return (
                                         <SingleOrder key={uuidv4()}>
-                                            <div>
+                                            <Typography
+                                                variant="subtitle1"
+                                                sx={{
+                                                    textDecoration: "underline",
+                                                }}
+                                            >
                                                 Ordered at :&nbsp;
                                                 {months[d.getMonth()]}
                                                 &nbsp;
@@ -105,7 +113,7 @@ const OrderHistory = (props: Props) => {
                                                 {d.getHours() > 12
                                                     ? " pm"
                                                     : " am"}
-                                            </div>
+                                            </Typography>
                                             {items.map((item) => {
                                                 return (
                                                     <Box key={uuidv4()}>

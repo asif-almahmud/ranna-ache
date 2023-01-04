@@ -33,6 +33,9 @@ const DeliveryDetails = styled("div")(({ theme }) => ({
     display: "flex",
     flexDirection: "column",
     gap: "40px",
+    [theme.breakpoints.down(840)]: {
+        width: "80%",
+    },
 }));
 
 const CustomLabel = ({

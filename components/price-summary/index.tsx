@@ -98,6 +98,9 @@ const PriceSummary: FC<IPriceSummaryProps> = ({
     };
 
     const handlePlaceOrder = async () => {
+        if (calculation.total === 0) {
+            return;
+        }
         mutate(payload);
         console.log({ error, data });
     };
@@ -131,7 +134,7 @@ const PriceSummary: FC<IPriceSummaryProps> = ({
                     onClick={handlePlaceOrder}
                     sx={{
                         backgroundColor: (theme) =>
-                            isLoading
+                            isLoading || calculation.total === 0
                                 ? theme.palette.primary.lighter
                                 : theme.palette.secondary.main,
                         cursor: isLoading ? null : "pointer",

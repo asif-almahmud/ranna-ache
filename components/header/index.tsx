@@ -95,14 +95,14 @@ const Icon = styled("i")(({ theme }) => ({
     [theme.breakpoints.down("sm")]: {
         fontSize: "18px",
         color: "#fff",
-        zIndex: "9999",
+        zIndex: "999",
     },
 }));
 
-const Expand = styled(Icon)(({ theme }) => ({
+const Expand = styled(StyledIconButton)(({ theme }) => ({
     display: "none",
     [theme.breakpoints.down(600)]: {
-        display: "block",
+        display: "flex",
     },
 }));
 
@@ -156,12 +156,13 @@ export const Header = () => {
                         ))}
                     </NavOptions>
                     <IconContainer>
-                        <StyledIconButton>
-                            <Expand
+                        <Expand>
+                            <Icon
                                 className="uil uil-bars"
                                 onClick={() => setOpenOptions((prev) => !prev)}
-                            ></Expand>
-                        </StyledIconButton>
+                            ></Icon>
+                        </Expand>
+
                         <StyledIconButton>
                             <Icon className="uil uil-search icon-size"></Icon>
                         </StyledIconButton>

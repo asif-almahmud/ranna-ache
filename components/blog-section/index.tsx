@@ -39,7 +39,7 @@ const ColumnAside = styled("div")(({ theme }) => ({
 const ColumnMiddle = styled("div")(({ theme }) => ({
     flex: 2,
     [theme.breakpoints.down("sm")]: {
-        flex: 1.5,
+        flex: 1.75,
     },
     [theme.breakpoints.down(600)]: {
         margin: "15px 0px",
@@ -65,6 +65,9 @@ const ImageContainer = styled("div")(({ theme }) => ({
     [theme.breakpoints.down(700)]: {
         height: "140px",
     },
+    [theme.breakpoints.down(600)]: {
+        height: "200px",
+    },
 }));
 
 const ImageContainerMiddle = styled(ImageContainer)(({ theme }) => ({
@@ -77,9 +80,6 @@ const ImageContainerMiddle = styled(ImageContainer)(({ theme }) => ({
     },
     [theme.breakpoints.down(700)]: {
         height: "240px",
-    },
-    [theme.breakpoints.down(600)]: {
-        height: "140px",
     },
 }));
 
@@ -99,10 +99,10 @@ const TextContainer = styled("div")(({ theme }) => ({
 
 type Props = {};
 
-const BlogSection = (props: Props) => {
+const Blog = (props: Props) => {
     return (
         <Section bgcolor="#fff">
-            <Box sx={{ margin: "100px 0px" }}>
+            <Box sx={{ padding: "100px 0px" }}>
                 <Typography variant="h5">Our Blog</Typography>
                 <BlogsContainer>
                     <ColumnAside>
@@ -262,4 +262,4 @@ const BlogSection = (props: Props) => {
     );
 };
 
-export default BlogSection;
+export default Blog;

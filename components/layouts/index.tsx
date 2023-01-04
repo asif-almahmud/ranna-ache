@@ -1,17 +1,41 @@
-import React, { FC, ReactNode } from "react";
+import { useAppDispatch, useAppSelector } from "app/hooks";
+import { setInitialCart } from "features/cart/cartSlice";
+import { createUser } from "features/user/userSlice";
+import React, { FC, ReactNode, useEffect } from "react";
 import { Header } from "../header";
 
 interface ILayoutProps {
-  children: ReactNode;
+    children: ReactNode;
 }
-
+let updated = 0;
 const Layout: FC<ILayoutProps> = ({ children }) => {
-  return (
-    <div>
-      <Header />
-      <div>{children}</div>
-    </div>
-  );
+    const { cart, user } = useAppSelector((state) => state);
+    const dispatch = useAppDispatch();
+
+    useEffect(() => {
+        const CartStoredAtLocal = localStorage.getItem("munchies-cart");
+        if (CartStoredAtLocal) {
+            dispatch(setInitialCart(JSON.parse(CartStoredAtLocal)));
+        }
+        const UserStoredAtLocal = localStorage.getItem("munchies-user");
+        if (UserStoredAtLocal) {
+            dispatch(createUser(JSON.parse(UserStoredAtLocal)));
+        }
+    }, []);
+
+    useEffect(() => {
+        if (updated > 0) {
+            localStorage.setItem("munchies-cart", JSON.stringify(cart));
+            localStorage.setItem("munchies-user", JSON.stringify(user));
+        }
+        updated++;
+    }, [cart, user]);
+    return (
+        <div>
+            <Header />
+            <div>{children}</div>
+        </div>
+    );
 };
 
 export default Layout;

@@ -3,7 +3,7 @@ import axiosClient from "api/axiosClient";
 import Layout from "components/layouts";
 import Section from "components/section";
 import ItemSummary from "pages/checkout/components/item-summary";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import { theme } from "theme/theme";
 import { ICalculation, IItemForPayload } from "types/type";
@@ -51,7 +51,7 @@ const OrderHistory = (props: Props) => {
         "orders",
         getOrderHistory
     );
-    console.log({ data: data?.data });
+
     return (
         <Layout>
             <Section bgcolor={theme.palette.primary.superLight}>
@@ -70,12 +70,15 @@ const OrderHistory = (props: Props) => {
                         Your Order History
                     </Typography>
                     {isLoading && (
-                        <Typography>Loading, please wait...</Typography>
+                        <Typography variant="h6">
+                            Loading, please wait...
+                        </Typography>
                     )}
                     {!isLoading &&
-                        data?.data.map(
-                            (
-                                {
+                        [...data?.data]
+                            .reverse()
+                            .map(
+                                ({
                                     items,
                                     createdAt,
                                     calculation,
@@ -83,54 +86,52 @@ const OrderHistory = (props: Props) => {
                                     items: IItemForPayload[];
                                     createdAt: string;
                                     calculation: ICalculation;
-                                },
-                                idx: number
-                            ) => {
-                                if (idx === 0) {
-                                    return;
+                                }) => {
+                                    console.log({ items });
+                                    const d = new Date(createdAt);
+                                    return (
+                                        <SingleOrder key={uuidv4()}>
+                                            <div>
+                                                Ordered at :&nbsp;
+                                                {months[d.getMonth()]}
+                                                &nbsp;
+                                                {d.getDate()},&nbsp;
+                                                {d.getFullYear()}
+                                                ,&nbsp;
+                                                {d.getHours() > 12
+                                                    ? d.getHours() - 12
+                                                    : d.getHours()}
+                                                :{d.getMinutes()}
+                                                {d.getHours() > 12
+                                                    ? " pm"
+                                                    : " am"}
+                                            </div>
+                                            {items.map((item) => {
+                                                return (
+                                                    <Box key={uuidv4()}>
+                                                        <Typography>
+                                                            {item.addon.name},
+                                                            quantity:&nbsp;
+                                                            {item.quantity},
+                                                            price:&nbsp; $
+                                                            {item.addon.price *
+                                                                item.quantity}
+                                                        </Typography>
+                                                    </Box>
+                                                );
+                                            })}
+                                            <Box>
+                                                <Typography>
+                                                    Subtotal: $
+                                                    {calculation.price}, Vat: $
+                                                    {calculation.vat}, Total: $
+                                                    {calculation.total}
+                                                </Typography>
+                                            </Box>
+                                        </SingleOrder>
+                                    );
                                 }
-                                console.log({ items });
-                                const d = new Date(createdAt);
-                                return (
-                                    <SingleOrder key={uuidv4()}>
-                                        <div>
-                                            Ordered at :&nbsp;
-                                            {months[d.getMonth()]}
-                                            &nbsp;
-                                            {d.getDate()},&nbsp;
-                                            {d.getFullYear()}
-                                            ,&nbsp;
-                                            {d.getHours() > 12
-                                                ? d.getHours() - 12
-                                                : d.getHours()}
-                                            :{d.getMinutes()}
-                                            {d.getHours() > 12 ? " pm" : " am"}
-                                        </div>
-                                        {items.map((item) => {
-                                            return (
-                                                <Box key={uuidv4()}>
-                                                    <Typography>
-                                                        {item.addon.name},
-                                                        quantity:&nbsp;
-                                                        {item.quantity},
-                                                        price:&nbsp; $
-                                                        {item.addon.price *
-                                                            item.quantity}
-                                                    </Typography>
-                                                </Box>
-                                            );
-                                        })}
-                                        <Box>
-                                            <Typography>
-                                                Subtotal: ${calculation.price},
-                                                Vat: ${calculation.vat}, Total:
-                                                ${calculation.total}
-                                            </Typography>
-                                        </Box>
-                                    </SingleOrder>
-                                );
-                            }
-                        )}
+                            )}
                 </Box>
             </Section>
         </Layout>

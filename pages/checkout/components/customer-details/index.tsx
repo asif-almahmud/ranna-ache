@@ -57,13 +57,13 @@ const CustomerDetails = (props: Props) => {
     const [customerDetails, setCustomerDetails] = useState({
         name: "",
         address: "",
-        email: "",
+        // email: "",
         phone: "",
     });
     const [errorMessage, setErrorMessage] = useState({
         name: "",
         address: "",
-        email: "",
+        // email: "",
         phone: "",
     });
 
@@ -72,7 +72,7 @@ const CustomerDetails = (props: Props) => {
         if (
             customerDetails.name.trim() === "" ||
             customerDetails.address.trim() === "" ||
-            customerDetails.email.trim() === "" ||
+            // customerDetails.email.trim() === "" ||
             customerDetails.phone.trim() === ""
         ) {
             customerDetails.name.trim() === "" &&
@@ -83,24 +83,24 @@ const CustomerDetails = (props: Props) => {
                 setErrorMessage((prev) => {
                     return { ...prev, address: "Required" };
                 });
-            customerDetails.email.trim() === "" &&
-                setErrorMessage((prev) => {
-                    return { ...prev, email: "Required" };
-                });
+            // customerDetails.email.trim() === "" &&
+            //     setErrorMessage((prev) => {
+            //         return { ...prev, email: "Required" };
+            //     });
             customerDetails.phone.trim() === "" &&
                 setErrorMessage((prev) => {
                     return { ...prev, phone: "Required" };
                 });
             return;
         }
-        const emailRegEx =
-            /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        if (!emailRegEx.test(customerDetails.email)) {
-            setErrorMessage((prev) => {
-                return { ...prev, email: "Invalid email address" };
-            });
-            return;
-        }
+        // const emailRegEx =
+        //     /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        // if (!emailRegEx.test(customerDetails.email)) {
+        //     setErrorMessage((prev) => {
+        //         return { ...prev, email: "Invalid email address" };
+        //     });
+        //     return;
+        // }
         const numberRegEx =
             /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im;
         if (!numberRegEx.test(customerDetails.phone)) {
@@ -128,11 +128,11 @@ const CustomerDetails = (props: Props) => {
                 return { ...prev, address: "" };
             });
         }
-        if (customerDetails.email.trim() !== "") {
-            setErrorMessage((prev) => {
-                return { ...prev, email: "" };
-            });
-        }
+        // if (customerDetails.email.trim() !== "") {
+        //     setErrorMessage((prev) => {
+        //         return { ...prev, email: "" };
+        //     });
+        // }
         if (customerDetails.phone.trim() !== "") {
             setErrorMessage((prev) => {
                 return { ...prev, phone: "" };
@@ -141,10 +141,10 @@ const CustomerDetails = (props: Props) => {
     }, [customerDetails]);
     return (
         <>
-            {!user.email && (
+            {!user.name && (
                 <FormContainer onSubmit={handleSubmit}>
                     <Typography variant="h6">
-                        Please provide your details
+                        Please provide following informations
                     </Typography>
                     <Box sx={{ display: "flex", flexDirection: "column" }}>
                         <CustomLabel withStar>Name</CustomLabel>
@@ -177,7 +177,7 @@ const CustomerDetails = (props: Props) => {
                         />
                         <ErrorMessage>{errorMessage.address}</ErrorMessage>
                     </Box>
-                    <Box sx={{ display: "flex", flexDirection: "column" }}>
+                    {/* <Box sx={{ display: "flex", flexDirection: "column" }}>
                         <CustomLabel withStar>Email</CustomLabel>
                         <CustomInput
                             type="text"
@@ -191,7 +191,7 @@ const CustomerDetails = (props: Props) => {
                             }
                         />
                         <ErrorMessage>{errorMessage.email}</ErrorMessage>
-                    </Box>{" "}
+                    </Box>{" "} */}
                     <Box sx={{ display: "flex", flexDirection: "column" }}>
                         <CustomLabel withStar>Phone</CustomLabel>
                         <CustomInput
@@ -213,7 +213,7 @@ const CustomerDetails = (props: Props) => {
                     />
                 </FormContainer>
             )}
-            {user.email && (
+            {user.name && (
                 <DeliveryDetails>
                     <div>
                         <Typography variant="body1">
@@ -222,9 +222,9 @@ const CustomerDetails = (props: Props) => {
                         <Typography variant="body1">
                             Address : {user.address}
                         </Typography>
-                        <Typography variant="body1">
+                        {/* <Typography variant="body1">
                             Email : {user.email}
-                        </Typography>
+                        </Typography> */}
                         <Typography variant="body1">
                             Phone : {user.phone}
                         </Typography>

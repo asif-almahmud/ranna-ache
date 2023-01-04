@@ -1,7 +1,8 @@
 import { alpha, Box, styled, Typography } from "@mui/material";
 import axiosClient from "api/axiosClient";
-import { useAppSelector } from "app/hooks";
+import { useAppDispatch, useAppSelector } from "app/hooks";
 import axios from "axios";
+import { emptyCart } from "features/cart/cartSlice";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { FC } from "react";
@@ -52,10 +53,13 @@ const PriceSummary: FC<IPriceSummaryProps> = ({
         cart: { calculation, items },
         user,
     } = useAppSelector((state) => state);
+    const dispatch = useAppDispatch();
     const router = useRouter();
     const { mutate, error, data, isLoading } = useMutation(placeOrder, {
         onSuccess: () => {
             router.push("/order-history");
+            localStorage.removeItem("munchies-cart");
+            dispatch(emptyCart());
         },
         onError: (err: any) => {
             alert(err);

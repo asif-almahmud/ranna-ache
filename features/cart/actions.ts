@@ -2,16 +2,6 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 import { ICart, ICartItem, ItemId } from "../../types/type";
 import { initialState } from "./cartSlice";
 
-// id: string;
-//   name: string;
-//   price: number;
-//   quantity: number;
-//   vat: number;
-//   addon: {
-//     name: string;
-//     price: number;
-//   };
-
 const addItemToCart = (state: ICart, action: PayloadAction<ICartItem>) => {
     if (
         state.items.filter((item) => item.id === action.payload.id).length === 0
@@ -70,7 +60,7 @@ const emptyCart = (
     state: ICart
     // action: PayloadAction<{}>
 ) => {
-    state = initialState;
+    return initialState;
 };
 
 const handleAddon = (
@@ -105,6 +95,12 @@ const handleCalculation = (state: ICart) => {
     state.calculation.total = state.calculation.price + state.calculation.vat;
 };
 
+const setInitialCartState = (state: ICart, action: PayloadAction<ICart>) => {
+    console.log("setting initial cart");
+    console.log({ ...action.payload });
+    return action.payload;
+};
+
 export {
     addItemToCart,
     deleteItemFromCart,
@@ -113,4 +109,5 @@ export {
     emptyCart,
     handleAddon,
     handleCalculation,
+    setInitialCartState,
 };

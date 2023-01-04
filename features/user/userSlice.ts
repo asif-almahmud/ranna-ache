@@ -5,7 +5,7 @@ import { IUser } from "types/type";
 export const initialState: IUser = {
     name: null,
     address: null,
-    email: null,
+    // email: null,
     phone: null,
 };
 

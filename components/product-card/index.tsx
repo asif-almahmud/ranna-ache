@@ -27,8 +27,6 @@ const StyledImage = styled(Image)(({ theme }) => ({
     objectFit: "cover",
     borderRadius: "10px 10px 0 0",
     backgroundColor: "#fff",
-    top: 0,
-    left: 0,
     transition: "transform 200ms ease-in-out",
     "&:hover": {
         transform: "scale(1.2)",
@@ -75,7 +73,7 @@ const ProductCard: FC<IProductCardProps> = ({ product }) => {
     } = product;
     console.log({ product });
     return (
-        <CardContainer item xs={6} sm={4} md={3} lg={3}>
+        <CardContainer item xxs={12} xs={6} sm={4} md={3} lg={3}>
             <Box
                 sx={{
                     width: "100%",

@@ -9,39 +9,39 @@ import { useQuery } from "react-query";
 import { theme } from "theme/theme";
 
 const Content = styled("div")(({ theme }) => ({
-  padding: "100px 0 100px 0",
+    padding: "100px 0",
 }));
 
 const fetchProducts = () => {
-  return axiosClient.get("/products");
+    return axiosClient.get("/products");
 };
 
 const Kitchen = () => {
-  const { data, isLoading, isError, error, isFetching } = useQuery(
-    "products",
-    fetchProducts
-    // { staleTime: 60000 }
-  );
-  console.log({ data });
-  return (
-    <Section bgcolor={theme.palette.primary.superLight}>
-      <Content>
-        <Typography variant="h5">Home kitchen</Typography>
-        <Offers />
-        <Filters />
-        <Grid
-          container
-          rowSpacing={6}
-          columnSpacing={4}
-          sx={{ marginTop: "0px" }}
-        >
-          {data?.data.map((product: any) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
-        </Grid>
-      </Content>
-    </Section>
-  );
+    const { data, isLoading, isError, error, isFetching } = useQuery(
+        "products",
+        fetchProducts
+        // { staleTime: 60000 }
+    );
+    console.log({ data });
+    return (
+        <Section bgcolor={theme.palette.primary.superLight}>
+            <Content>
+                <Typography variant="h5">Home kitchen</Typography>
+                <Offers />
+                <Filters />
+                <Grid
+                    container
+                    rowSpacing={6}
+                    columnSpacing={4}
+                    sx={{ marginTop: "0px" }}
+                >
+                    {data?.data.map((product: any) => (
+                        <ProductCard key={product.id} product={product} />
+                    ))}
+                </Grid>
+            </Content>
+        </Section>
+    );
 };
 
 export default Kitchen;

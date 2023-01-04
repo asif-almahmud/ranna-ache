@@ -42,6 +42,9 @@ const LogoContainer = styled(Link)(({ theme }) => ({
 const MenuOptions = styled(Box)(({ theme }) => ({
     display: "flex",
     gap: "40px",
+    [theme.breakpoints.down("sm")]: {
+        display: "none",
+    },
 }));
 
 const MenuOption = styled(Link)(({ theme }) => ({
